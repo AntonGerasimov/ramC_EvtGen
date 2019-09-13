@@ -4,23 +4,23 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/anton/work/ramC_EvtGen/src/EvtWnPi2.cpp" "/home/anton/work/ramC_EvtGen/build/CMakeFiles/prog.exe.dir/src/EvtWnPi2.cpp.o"
-  "/home/anton/work/ramC_EvtGen/src/prog.c++" "/home/anton/work/ramC_EvtGen/build/CMakeFiles/prog.exe.dir/src/prog.c++.o"
+  "/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/src/EvtWnPi2.cpp" "/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/prog.exe.dir/src/EvtWnPi2.cpp.o"
+  "/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/src/prog.c++" "/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/prog.exe.dir/src/prog.c++.o"
   )
-set(CMAKE_CXX_COMPILER_ID "GNU")
+set(CMAKE_CXX_COMPILER_ID "Clang")
 
 # The include file search paths:
 set(CMAKE_CXX_TARGET_INCLUDE_PATH
-  "/home/anton/local/include"
+  "/Users/luchinsky/local/include"
   "../src"
-  "/home/anton/programs/root_v6.16.00.source/root-6.16.00/obj/include"
-  "/home/anton/programs/EvtGen-01.07.00/EvtGen/R01-07-00"
+  "/usr/local/Cellar/root/6.12.04_1/include/root"
+  "/Users/luchinsky/Work/EvtGen/R01-06-00"
   "../."
   )
 
 # Targets to which this target links.
 set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/home/anton/work/ramC_EvtGen/build/CMakeFiles/ramC.dir/DependInfo.cmake"
+  "/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/ramC.dir/DependInfo.cmake"
   )
 
 # Fortran module output directory.
