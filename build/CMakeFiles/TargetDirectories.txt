@@ -1,6 +1,0 @@
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/prog.exe.dir
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/ramC.dir
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/edit_cache.dir
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/rebuild_cache.dir
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/test.exe.dir
-/Users/luchinsky/Work/CURRENT/Omega_QQ_Npi/code/ramC_EvtGen/build/CMakeFiles/pion.exe.dir

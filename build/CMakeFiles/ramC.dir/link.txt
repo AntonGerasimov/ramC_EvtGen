@@ -1,2 +1,0 @@
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ar qc libramC.a  CMakeFiles/ramC.dir/src/ramC.c++.o CMakeFiles/ramC.dir/src/rambo_.for.o
-/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/ranlib libramC.a
