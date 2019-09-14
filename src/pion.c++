@@ -201,7 +201,7 @@ int save_sp(int n_pi) {
 int main(int argc, char *argv[]) {
     time_t current_time = time(NULL);
     EvtPDL pdl;
-    pdl.read("evt.pdl");
+    pdl.read("../evt.pdl");
     mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
 
     if (argc != 2) {
