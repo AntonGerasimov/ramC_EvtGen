@@ -7,7 +7,7 @@ The program uses the following package:
 
 * ROOT
 * EvtGen (including HepMC)
-* ramC
+* ramC (see https://bitbucket.org/Luchinsky/ramc/)
 
 These packages should be installed separately and the paths to them
 should be added in the corresponding Find*.cmake files
