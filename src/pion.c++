@@ -167,6 +167,10 @@ int main(int argc, char *argv[]) {
         return -1;
     };
     int n_pi = atoi(argv[1]);
+    if(n_pi<2 || n_pi>5) {
+        cout<<" only 2 <= n_pi <=5 is supported"<<endl;
+        return -1;
+    };
     cout<<" Calculating spectral function for "<< n_pi<<" pions production"<<endl;
 
 
