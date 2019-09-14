@@ -190,7 +190,7 @@ int save_sp(int n_pi) {
         };
         if (iq % (qsize / 10) == 0)
             cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
-        out << qn << " " << qsum << endl;
+        out << qn * qn << " " << qsum << endl;
     };
     out.close();
     return 0;
