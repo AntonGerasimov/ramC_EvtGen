@@ -160,24 +160,9 @@ double spec_func_5pi(double q) {
     return sum;
 }
 
-int main(int argc, char *argv[]) {
-    if (argc != 2) {
-        cout << " Wrong number of arguments! Use the format " << endl;
-        cout << "\t  ./pion.exe <n_pi>" << endl;
-        return -1;
-    };
-    int n_pi = atoi(argv[1]);
-    if (n_pi < 2 || n_pi > 5) {
-        cout << " only 2 <= n_pi <=5 is supported" << endl;
-        return -1;
-    };
-    string out_file_name = "./plot" + std::to_string(n_pi) + ".txt";
+int save_sp(int n_pi) {
+    string out_file_name = "./plot" + std::to_string(n_pi) + "pi.txt";
     cout << " Calculating spectral function for " << n_pi << " pions production. The results are saved to file " << out_file_name << endl;
-
-
-    EvtPDL pdl;
-    pdl.read("evt.pdl");
-    mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
 
     double qmax = n_pi;
     double qmin = n_pi*mpi;
@@ -189,9 +174,7 @@ int main(int argc, char *argv[]) {
     out.open(out_file_name);
 
     for (int iq = 1; iq <= qsize; ++iq) {
-
         double qn = qmin + iq * qstep;
-
         double qsum;
         if (n_pi == 2)
             qsum = spec_func_2pi(qn);
@@ -205,16 +188,39 @@ int main(int argc, char *argv[]) {
             cout << "n_pi = " << n_pi << " is not supported yet" << endl;
             return -1;
         };
-
         if (iq % (qsize / 10) == 0)
             cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
         out << qn << " " << qsum << endl;
+    };
+    out.close();
+    return 0;
+}
 
+int main(int argc, char *argv[]) {
+    EvtPDL pdl;
+    pdl.read("evt.pdl");
+    mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
 
+    if (argc != 2) {
+        cout << " Wrong number of arguments! Use the format " << endl;
+        cout << "\t  ./pion.exe <n_pi>" << endl;
+        return -1;
+    };
+    int n_pi;
+    if (string(argv[1]) == "all") {
+        for (n_pi = 2; n_pi <= 5; ++n_pi) {
+            save_sp(n_pi);
+        };
+        return 0;
     };
 
+    n_pi = atoi(argv[1]);
+    if (n_pi < 2 || n_pi > 5) {
+        cout << " only 2 <= n_pi <=5 is supported" << endl;
+        return -1;
+    };
 
-    out.close();
+    save_sp(n_pi);
 
 
 }
