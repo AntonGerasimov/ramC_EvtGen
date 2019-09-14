@@ -193,22 +193,22 @@ int main(int argc, char *argv[]) {
         double qn = qmin + iq * qstep;
 
         double qsum;
-        if(n_pi == 2)
+        if (n_pi == 2)
             qsum = spec_func_2pi(qn);
-        else if(n_pi == 3)
+        else if (n_pi == 3)
             qsum = spec_func_3pi(qn);
-        else if(n_pi == 4)
+        else if (n_pi == 4)
             qsum = spec_func_4pi(qn);
-        else if(n_pi == 5)
+        else if (n_pi == 5)
             qsum = spec_func_5pi(qn);
         else {
-            cout << "n_pi = "<<n_pi<<" is not supported yet"<<endl;
+            cout << "n_pi = " << n_pi << " is not supported yet" << endl;
             return -1;
         };
 
-
-        cout << iq << endl;
-        out << qn  << " " << qsum << endl;
+        if (iq % (qsize / 10) == 0)
+            cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
+        out << qn << " " << qsum << endl;
 
 
     };
