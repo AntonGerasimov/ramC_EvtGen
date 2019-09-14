@@ -1,5 +1,7 @@
 #include <iostream>
 #include <fstream>
+#include <ctime>
+
 #include "ramC.h"
 #include "./EvtWnPi2.hh"
 #include "EvtGenBase/EvtPDL.hh"
@@ -197,6 +199,7 @@ int save_sp(int n_pi) {
 }
 
 int main(int argc, char *argv[]) {
+    time_t current_time = time(NULL);
     EvtPDL pdl;
     pdl.read("evt.pdl");
     mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
@@ -211,17 +214,16 @@ int main(int argc, char *argv[]) {
         for (n_pi = 2; n_pi <= 5; ++n_pi) {
             save_sp(n_pi);
         };
-        return 0;
+    } else {
+        n_pi = atoi(argv[1]);
+        if (n_pi < 2 || n_pi > 5) {
+            cout << " only 2 <= n_pi <=5 is supported" << endl;
+            return -1;
+        };
+        save_sp(n_pi);
     };
-
-    n_pi = atoi(argv[1]);
-    if (n_pi < 2 || n_pi > 5) {
-        cout << " only 2 <= n_pi <=5 is supported" << endl;
-        return -1;
-    };
-
-    save_sp(n_pi);
-
+    cout << " ---------------- " << endl;
+    cout << " Calculation took " << time(NULL) - current_time << " seconds" << endl;
 
 }
 
