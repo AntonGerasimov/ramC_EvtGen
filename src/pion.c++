@@ -167,67 +167,54 @@ int main(int argc, char *argv[]) {
         return -1;
     };
     int n_pi = atoi(argv[1]);
-    if(n_pi<2 || n_pi>5) {
-        cout<<" only 2 <= n_pi <=5 is supported"<<endl;
+    if (n_pi < 2 || n_pi > 5) {
+        cout << " only 2 <= n_pi <=5 is supported" << endl;
         return -1;
     };
-    cout<<" Calculating spectral function for "<< n_pi<<" pions production"<<endl;
+    string out_file_name = "./plot" + std::to_string(n_pi) + ".txt";
+    cout << " Calculating spectral function for " << n_pi << " pions production. The results are saved to file " << out_file_name << endl;
 
 
     EvtPDL pdl;
     pdl.read("evt.pdl");
     mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
 
-    double qmax2 = 2;
-    double qmax3 = 3;
-    double qmax4 = 4;
-    double qmax5 = 5;
-
-    double qmin2 = 2 * mpi;
-    double qmin3 = 3 * mpi;
-    double qmin4 = 4 * mpi;
-    double qmin5 = 5 * mpi;
-
+    double qmax = n_pi;
+    double qmin = n_pi*mpi;
     int qsize = 100;
+    double qstep = (qmax - qmin) / qsize;
 
-    double qstep2 = (qmax2 - qmin2) / qsize;
-    double qstep3 = (qmax3 - qmin3) / qsize;
-    double qstep4 = (qmax4 - qmin4) / qsize;
-    double qstep5 = (qmax5 - qmin5) / qsize;
 
-    ofstream out2, out3, out4, out5;
-    out2.open("./plot2pi.txt");
-    out3.open("./plot3pi.txt");
-    out4.open("./plot4pi.txt");
-    out5.open("./plot5pi.txt");
+    ofstream out;
+    out.open(out_file_name);
 
     for (int iq = 1; iq <= qsize; ++iq) {
 
-        double qn2 = qmin2 + iq * qstep2;
-        double qn3 = qmin3 + iq * qstep3;
-        double qn4 = qmin4 + iq * qstep4;
-        double qn5 = qmin5 + iq * qstep5;
+        double qn = qmin + iq * qstep;
 
-        double qsum2 = spec_func_2pi(qn2);
-        double qsum3 = spec_func_3pi(qn3);
-        double qsum4 = spec_func_4pi(qn4);
-        double qsum5 = spec_func_5pi(qn5);
+        double qsum;
+        if(n_pi == 2)
+            qsum = spec_func_2pi(qn);
+        else if(n_pi == 3)
+            qsum = spec_func_3pi(qn);
+        else if(n_pi == 4)
+            qsum = spec_func_4pi(qn);
+        else if(n_pi == 5)
+            qsum = spec_func_5pi(qn);
+        else {
+            cout << "n_pi = "<<n_pi<<" is not supported yet"<<endl;
+            return -1;
+        };
 
 
         cout << iq << endl;
-        out2 << qn2 * qn2 << " " << qsum2 << endl;
-        out3 << qn3 * qn3 << " " << qsum3 << endl;
-        out4 << qn4 * qn4 << " " << qsum4 << endl;
-        out5 << qn5 * qn5 << " " << qsum5 << endl;
+        out << qn  << " " << qsum << endl;
 
 
     };
 
 
-    out2.close();
-    out3.close();
-    out4.close();
-    out5.close();
+    out.close();
 
 
 }
