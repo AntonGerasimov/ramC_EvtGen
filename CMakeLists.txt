@@ -32,6 +32,7 @@ include_directories(~/local/include)
 
 include_directories(src)
 include_directories(${ROOT_INCLUDE_DIR})
+include_directories(/home/anton/programs/root_v6.16.00.source/root-6.16.00/obj/include/)
 include_directories(${EVTGEN_INCLUDE_DIR}) 
 include_directories(${RAMC_INCLUDE_DIR}) 
 
@@ -39,6 +40,13 @@ include_directories(./)
 include_directories(src/)
 
 
+
+#adding sources for pion.exe
+add_executable (pion.exe "src/pion.c++" "src/EvtWnPi2.cpp")
+target_link_libraries(pion.exe ${EVTGEN_LIBRARY_DIR}/archive/libEvtGen.a)
+target_link_libraries(pion.exe ${HEPMC_LIBRARY_DIR}/libHepMC.a)
+target_link_libraries(pion.exe ${ROOT_LIBRARIES}) 
+target_link_libraries(pion.exe ${RAMC_LIBRARY_DIR}/libramC.a) 
 
 
 #adding sources for prog.exe
@@ -49,9 +57,5 @@ target_link_libraries(prog.exe ${ROOT_LIBRARIES})
 target_link_libraries(prog.exe ${RAMC_LIBRARY_DIR}/libramC.a) 
 
 
-#adding sources for pion.exe
-add_executable (pion.exe "src/pion.c++" "src/EvtWnPi2.cpp")
-target_link_libraries(pion.exe ${EVTGEN_LIBRARY_DIR}/archive/libEvtGen.a)
-target_link_libraries(pion.exe ${HEPMC_LIBRARY_DIR}/libHepMC.a)
-target_link_libraries(pion.exe ${ROOT_LIBRARIES}) 
-target_link_libraries(pion.exe ${RAMC_LIBRARY_DIR}/libramC.a) 
+
+
