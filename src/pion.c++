@@ -122,6 +122,44 @@ double spec_func_4pi(double q) {
     return sum;
 }
 
+double spec_func_omega(double q) {
+
+    EvtWnPi2 cur;
+    double pi = 3.14;
+    double XM[] = {mpi, mpi, mpi, mpi};
+    double GF = 1;
+    RAMBOC R(4, q, XM);
+    double sum = 0;
+    int nEv = 1e5;
+
+    for (int iEv = 0; iEv < nEv; ++iEv) {
+        double wt = R.next();
+        wt *= pow(2 * pi, 4 - 4 * 3);
+        EvtVector4R q1 = R.getV(0);
+        EvtVector4R q2 = R.getV(1);
+        EvtVector4R q3 = R.getV(2);
+        EvtVector4R q4 = R.getV(3);
+
+        EvtVector4C alpha = cur.OmegaCurrent(q1, q2, q3, q4);
+        EvtVector4C beta = alpha.conj();
+        EvtComplex gama = alpha * beta / (-3 * q * q);
+        sum += real(gama) * wt;
+        //     double mtr2 = 128 * pow(GF, 2)*(p * q1)*(k * q1);
+        //     sum += mtr2*wt;
+        if (iEv < 0) {
+            cout << " Debug print at iEv=" << iEv << " =========== " << endl;
+            cout << " q1 = " << q1 << "; m2 = " << q1.mass2() << endl;
+            cout << " q2 = " << q2 << "; m2 = " << q2.mass2() << endl;
+            //           cout << " q3 = " << q3 << "; m2 = " << q3.mass2() << endl;
+            //           cout << " q = " << q << "; m = " << p.mass() << endl;
+            cout << "gama=" << gama << std::endl;
+        }
+    };
+
+    sum /= nEv;
+    return sum;
+}
+
 double spec_func_5pi(double q) {
 
     EvtWnPi2 cur;
@@ -198,6 +236,30 @@ int save_sp(int n_pi) {
     return 0;
 }
 
+void save_sp_omega() {
+    string out_file_name = "./plot_omega.txt";
+    cout << " Calculating spectral function for omega pions production. The results are saved to file "  << endl;
+
+    double qmax = 4;
+    double qmin = 4*mpi;
+    int qsize = 100;
+    double qstep = (qmax - qmin) / qsize;
+
+
+    ofstream outomega;
+    outomega.open("omega.txt");
+
+    for (int iq = 1; iq <= qsize; ++iq) {
+        double qn = qmin + iq * qstep;
+        double qsum;
+        qsum = spec_func_omega(qn);
+        if (iq % (qsize / 10) == 0)
+            cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
+        outomega << qn * qn << " " << qsum << endl;
+    };
+    outomega.close();
+}
+
 int main(int argc, char *argv[]) {
     time_t current_time = time(NULL);
     EvtPDL pdl;
@@ -214,7 +276,12 @@ int main(int argc, char *argv[]) {
         for (n_pi = 2; n_pi <= 5; ++n_pi) {
             save_sp(n_pi);
         };
-    } else {
+    } else
+        if(string(argv[1]) == "omega"){
+             save_sp_omega();
+        }
+        else
+    {
         n_pi = atoi(argv[1]);
         if (n_pi < 2 || n_pi > 5) {
             cout << " only 2 <= n_pi <=5 is supported" << endl;

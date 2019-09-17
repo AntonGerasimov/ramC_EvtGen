@@ -12,6 +12,7 @@ public:
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
+  EvtVector4C OmegaCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4, EvtVector4R q5);
   EvtVector4C J4pi(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
 protected:
@@ -20,6 +21,10 @@ protected:
   EvtComplex BWa( EvtVector4R q);
   EvtComplex BWf( EvtVector4R q);
   EvtComplex BWr( EvtVector4R q);
+ EvtComplex BWb( EvtVector4R q);
+
+ EvtComplex BWomega( EvtVector4R q);
+
 
   double pi3G(double Q2);
 };

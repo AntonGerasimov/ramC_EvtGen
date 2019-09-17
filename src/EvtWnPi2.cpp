@@ -79,6 +79,21 @@ EvtVector4C EvtWnPi2::J4pi(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVe
     return BWa(Qtot)*T.cont1(q3-q4)*BWr(q3+q4)*BWf(q1+q2);
 }
 
+// W+ -> Omega0 pi+ -> rho+ pi- pi+ -> pi+ pi0 pi- pi+
+EvtVector4C EvtWnPi2::OmegaCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4){
+    EvtVector4R Qtot = q1+q2+q3+q4;
+    EvtVector4R Qomega = q1+q2+q3;
+    EvtVector4R Qrho = q1+q2;
+    return BWb(Qtot)*BWomega(Qomega)*BWr(Qrho)*dual(EvtGenFunctions::directProd(Qomega,Qrho)).cont1(q1-q2);
+
+}
+EvtComplex EvtWnPi2::BWb(EvtVector4R q){
+    return 1;
+}
+
+EvtComplex EvtWnPi2::BWomega(EvtVector4R q){
+    return 1;
+}
 
 // W+ -> pi+ pi+ pi- pi- pi+ current with symmetrization
 EvtVector4C EvtWnPi2::WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4, EvtVector4R q5) {
