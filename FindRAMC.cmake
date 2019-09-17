@@ -13,6 +13,7 @@ MESSAGE(STATUS "Looking for EvtGen ...")
 
 FIND_PATH(RAMC_INCLUDE_DIR NAMES ramC.h PATHS
    /Users/luchinsky/Work/ramC/src/
+	/home/anton/programs/ramc/src/
   NO_DEFAULT_PATH
 )
 
@@ -20,6 +21,7 @@ FIND_PATH(RAMC_INCLUDE_DIR NAMES ramC.h PATHS
 FIND_PATH(RAMC_LIBRARY_DIR NAMES libramC.a PATHS
   ${SIMPATH}/lib
  /Users/luchinsky/Work/ramC/build/
+/home/anton/programs/ramc/build/
   NO_DEFAULT_PATH
 )
 
