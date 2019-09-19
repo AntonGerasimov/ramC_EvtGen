@@ -12,6 +12,8 @@ public:
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
+  EvtVector4C OmegaCurrent_Per(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
+EvtVector4C OmegaCurrent3(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
   EvtVector4C OmegaCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);
   EvtVector4C WCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4, EvtVector4R q5);
   EvtVector4C J4pi(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4);

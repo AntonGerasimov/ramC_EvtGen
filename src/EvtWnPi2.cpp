@@ -80,7 +80,22 @@ EvtVector4C EvtWnPi2::J4pi(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVe
 }
 
 // W+ -> Omega0 pi+ -> rho+ pi- pi+ -> pi+ pi0 pi- pi+
+
+//Симметризация по двум пи+
 EvtVector4C EvtWnPi2::OmegaCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4){
+   // return OmegaCurrent3(q1,q2,q3,q4)+OmegaCurrent3(q4,q2,q3,q1);
+    
+return OmegaCurrent_Per(q1,q2,q3,q4);
+}
+
+//Симметризация по трём
+EvtVector4C EvtWnPi2::OmegaCurrent3(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4){
+    return OmegaCurrent_Per(q1,q2,q3,q4)+OmegaCurrent_Per(q3,q1,q2,q4)+OmegaCurrent_Per(q3,q2,q1,q4)+OmegaCurrent_Per(q1,q3,q2,q4)+OmegaCurrent_Per(q2,q3,q1,q4)+OmegaCurrent_Per(q2,q1,q3,q4);
+
+}
+
+
+EvtVector4C EvtWnPi2::OmegaCurrent_Per(EvtVector4R q1, EvtVector4R q2, EvtVector4R q3, EvtVector4R q4){
     EvtVector4R Qtot = q1+q2+q3+q4;
     EvtVector4R Qomega = q1+q2+q3;
     EvtVector4R Qrho = q1+q2;
@@ -88,11 +103,17 @@ EvtVector4C EvtWnPi2::OmegaCurrent(EvtVector4R q1, EvtVector4R q2, EvtVector4R q
 
 }
 EvtComplex EvtWnPi2::BWb(EvtVector4R q){
-    return 1;
+  double const mb=1.235, Gb=0.142;
+  EvtComplex I(0,1);
+  double Q2 = q.mass2();
+  return mb*mb/(mb*mb-Q2-I*mb*Gb); 
 }
 
 EvtComplex EvtWnPi2::BWomega(EvtVector4R q){
-    return 1;
+  double const m_omega=0.782, G_omega=0.0849;
+  EvtComplex I(0,1);
+  double Q2 = q.mass2();
+  return m_omega*m_omega/(m_omega*m_omega-Q2-I*m_omega*G_omega); 
 }
 
 // W+ -> pi+ pi+ pi- pi- pi+ current with symmetrization
