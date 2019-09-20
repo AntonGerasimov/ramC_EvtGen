@@ -160,6 +160,44 @@ double spec_func_omega(double q) {
     return sum;
 }
 
+double spec_func_interference(double q) {
+
+    EvtWnPi2 cur;
+    double pi = 3.14;
+    double XM[] = {mpi, mpi, mpi, mpi};
+    double GF = 1;
+    RAMBOC R(4, q, XM);
+    double sum = 0;
+    int nEv = 1e5;
+
+    for (int iEv = 0; iEv < nEv; ++iEv) {
+        double wt = R.next();
+        wt *= pow(2 * pi, 4 - 4 * 3);
+        EvtVector4R q1 = R.getV(0);
+        EvtVector4R q2 = R.getV(1);
+        EvtVector4R q3 = R.getV(2);
+        EvtVector4R q4 = R.getV(3);
+
+        EvtVector4C alpha = cur.WCurrent(q1, q2, q3, q4) + 3*cur.OmegaCurrent(q1, q2, q3, q4);
+        EvtVector4C beta = alpha.conj();
+        EvtComplex gama = alpha * beta / (-3 * q * q);
+        sum += real(gama) * wt;
+        //     double mtr2 = 128 * pow(GF, 2)*(p * q1)*(k * q1);
+        //     sum += mtr2*wt;
+        if (iEv < 0) {
+            cout << " Debug print at iEv=" << iEv << " =========== " << endl;
+            cout << " q1 = " << q1 << "; m2 = " << q1.mass2() << endl;
+            cout << " q2 = " << q2 << "; m2 = " << q2.mass2() << endl;
+            //           cout << " q3 = " << q3 << "; m2 = " << q3.mass2() << endl;
+            //           cout << " q = " << q << "; m = " << p.mass() << endl;
+            cout << "gama=" << gama << std::endl;
+        }
+    };
+
+    sum /= nEv;
+    return sum;
+}
+
 double spec_func_5pi(double q) {
 
     EvtWnPi2 cur;
@@ -238,7 +276,7 @@ int save_sp(int n_pi) {
 
 void save_sp_omega() {
     string out_file_name = "./plot_omega.txt";
-    cout << " Calculating spectral function for omega pions production. The results are saved to file "  << endl;
+    cout << " Calculating spectral function for omega production. The results are saved to file "  << endl;
 
     double qmax = 4;
     double qmin = 4*mpi;
@@ -258,6 +296,30 @@ void save_sp_omega() {
         outomega << qn * qn << " " << qsum << endl;
     };
     outomega.close();
+}
+
+void save_sp_interference() {
+    string out_file_name = "./interf.txt";
+    cout << " Calculating spectral function for interference production. The results are saved to file "  << endl;
+
+    double qmax = 4;
+    double qmin = 4*mpi;
+    int qsize = 100;
+    double qstep = (qmax - qmin) / qsize;
+
+
+    ofstream outinterf;
+    outinterf.open("interf.txt");
+
+    for (int iq = 1; iq <= qsize; ++iq) {
+        double qn = qmin + iq * qstep;
+        double qsum;
+        qsum = spec_func_interference(qn);
+        if (iq % (qsize / 10) == 0)
+            cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
+        outinterf << qn * qn << " " << qsum << endl;
+    };
+    outinterf.close();
 }
 
 int main(int argc, char *argv[]) {
@@ -281,6 +343,10 @@ int main(int argc, char *argv[]) {
              save_sp_omega();
         }
         else
+            if (string(argv[1]) == "interf"){
+                save_sp_interference();
+            }
+            else
     {
         n_pi = atoi(argv[1]);
         if (n_pi < 2 || n_pi > 5) {
