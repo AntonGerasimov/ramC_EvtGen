@@ -242,9 +242,9 @@ int save_sp(int n_pi) {
     string out_file_name = "./plot" + std::to_string(n_pi) + "pi.txt";
     cout << " Calculating spectral function for " << n_pi << " pions production. The results are saved to file " << out_file_name << endl;
 
-    double qmax = n_pi;
+    double qmax = 4.7;
     double qmin = n_pi*mpi;
-    int qsize = 100;
+    int qsize = 1000;
     double qstep = (qmax - qmin) / qsize;
 
 
@@ -278,9 +278,9 @@ void save_sp_omega() {
     string out_file_name = "./plot_omega.txt";
     cout << " Calculating spectral function for omega production. The results are saved to file "  << endl;
 
-    double qmax = 4;
+    double qmax = 4.7;
     double qmin = 4*mpi;
-    int qsize = 100;
+    int qsize = 1000;
     double qstep = (qmax - qmin) / qsize;
 
 
@@ -302,9 +302,9 @@ void save_sp_interference() {
     string out_file_name = "./interf.txt";
     cout << " Calculating spectral function for interference production. The results are saved to file "  << endl;
 
-    double qmax = 4;
+    double qmax = 4.7;
     double qmin = 4*mpi;
-    int qsize = 100;
+    int qsize = 1000;
     double qstep = (qmax - qmin) / qsize;
 
 
@@ -326,8 +326,8 @@ int main(int argc, char *argv[]) {
     time_t current_time = time(NULL);
     EvtPDL pdl;
     pdl.read("evt.pdl");
-    mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
-
+ //   mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
+    mpi = 0.13957;
     if (argc != 2) {
         cout << " Wrong number of arguments! Use the format " << endl;
         cout << "\t  ./pion.exe <n_pi>" << endl;
