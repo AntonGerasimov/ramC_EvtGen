@@ -238,13 +238,12 @@ double spec_func_5pi(double q) {
     return sum;
 }
 
-int save_sp(int n_pi) {
+int save_sp(int n_pi, int qsize) {
     string out_file_name = "./plot" + std::to_string(n_pi) + "pi.txt";
     cout << " Calculating spectral function for " << n_pi << " pions production. The results are saved to file " << out_file_name << endl;
 
     double qmax = 4.7;
     double qmin = n_pi*mpi;
-    int qsize = 1000;
     double qstep = (qmax - qmin) / qsize;
 
 
@@ -266,7 +265,7 @@ int save_sp(int n_pi) {
             cout << "n_pi = " << n_pi << " is not supported yet" << endl;
             return -1;
         };
-        if (iq % (qsize / 10) == 0)
+        if (iq % (qsize / 20) == 0)
             cout << "========== " << 100. * iq / qsize << "% ===========" << endl;
         out << qn * qn << " " << qsum << endl;
     };
@@ -328,15 +327,17 @@ int main(int argc, char *argv[]) {
     pdl.read("evt.pdl");
  //   mpi = EvtPDL::getMass(EvtPDL::getId("pi+"));
     mpi = 0.13957;
-    if (argc != 2) {
+    if (argc != 3) {
         cout << " Wrong number of arguments! Use the format " << endl;
         cout << "\t  ./pion.exe <n_pi>" << endl;
         return -1;
     };
     int n_pi;
+    int qsize_;
+    qsize_ =  atoi(argv[2]);
     if (string(argv[1]) == "all") {
         for (n_pi = 2; n_pi <= 5; ++n_pi) {
-            save_sp(n_pi);
+            save_sp(n_pi, qsize_);
         };
     } else
         if(string(argv[1]) == "omega"){
@@ -353,7 +354,7 @@ int main(int argc, char *argv[]) {
             cout << " only 2 <= n_pi <=5 is supported" << endl;
             return -1;
         };
-        save_sp(n_pi);
+        save_sp(n_pi, qsize_);
     };
     cout << " ---------------- " << endl;
     cout << " Calculation took " << time(NULL) - current_time << " seconds" << endl;
